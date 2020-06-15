@@ -1,17 +1,16 @@
-yyyyyyyyyyyyyyyyyyyyyyyyyyimport time
+import time
 import pandas as pd
 
 CITY_DATA = { 'Chicago': 'chicago.csv',
-			'New York City': 'new_york_city.csv',
-			'Washington': 'washington.csv' }
-# Dictionary to assist function "load_data"
+            'New York City': 'new_york_city.csv',
+            'Washington': 'washington.csv' }
 month_index = { 1: 'January',
-				2: 'February',
-				3: 'March',
-				4: 'April',
-				5: 'May',
-				6: 'June'}
-# Begin filtering data
+                2: 'February',
+                3: 'March',
+                4: 'April',
+                5: 'May',
+                6: 'June'}
+#This is where the filters start
 def get_filters():
     print('Hello! Let\'s explore some US bikeshare data!\n')
     print('But first we have to filter the data before you can see anything.')
@@ -74,162 +73,127 @@ def get_filters():
                 print('\n...Reviewing your choices...\n')
 
 
-		# get user input for month (all, january, february, ... , june)
-		print('Now we have to know which month from January to June, or all.')
-		while True:
-			try:
-				print('January, February, March, April, May, June, or "All"')
-				month_input = input('Which month do you want to check out?\n')
-				if month_input.lower() == 'january' or month_input.lower() == 'jan':
-					month = 'January'
-					break
-				elif month_input.lower() == 'february' or month_input.lower() == 'feb':
-					month = 'February'
-					break
-				elif month_input.lower() == 'march' or month_input.lower() == 'mar':
-					month = 'March'
-					break
-				elif month_input.lower() == 'april' or month_input.lower() == 'apr':
-					month = 'April'
-					break
-				elif month_input.lower() == 'may':
-					month = 'May'
-					break
-				elif month_input.lower() == 'june' or month_input.lower() == 'jun':
-					month = 'June'
-					break
-				elif month_input.lower() == 'all':
-					print('You really want all of it?! Okay...your choice.')
-					month = 'All Months'
-					break
-				else:
-					print('"{}" is an invalid month. Let\'s try this again.\n'.format(month_input))
-			finally:
-				print('\n...Reviewing your choices...\n')
+        # get user input for day of week (all, monday, tuesday, ... sunday)
+        print('Which day of the week do you wanna view?')
+        while True:
+            try:
+                day_input = input('Select from Sun, Mon, Tues, Wed, Thurs, Fri, Sat, or the whole week:\n')
+                if day_input.lower() == 'sunday' or day_input.lower() == 'sun':
+                    day = 'Sunday'
+                    break
+                elif day_input.lower() == 'monday' or day_input.lower() == 'mon':
+                    print('I hate Mondays')
+                    day = 'Monday'
+                    break
+                elif day_input.lower() == 'tuesday' or day_input.lower() == 'tues':
+                    day = 'Tuesday'
+                    break
+                elif day_input.lower() == 'wednesday' or day_input.lower() == 'wed':
+                    print('HUMP DAY!!!')
+                    day = 'Wednesday'
+                    break
+                elif day_input.lower() == 'thursday' or day_input.lower() == 'thurs':
+                    day = 'Thursday'
+                    break
+                elif day_input.lower() == 'friday' or day_input.lower() == 'fri':
+                    day = 'Friday'
+                    break
+                elif day_input.lower() == 'saturday' or day_input.lower() == 'sat':
+                    day = 'Saturday'
+                    break
+                elif day_input.lower() == 'all' or day_input.lower() == 'the whole week':
+                    print('You seriously want the whole week?!')
+                    day = 'The Whole Week'
+                    break
+                else:
+                    print('{} is not even close to being a day of the week. Try again.'.format(day_input))
+            finally:
+                print('\n...Reviewing your choices...\n')
+        print('~'*80)
+        print('Just to recap. Your choices are as follows: {0}, {1}, and {2}'.format(city, month, day))
+        recap = input('Are you sure about these choices? Enter yes or no.\n')
+        if recap.lower() == 'yes' or recap.lower() == 'y' or recap == '':
+            print('Choices confirmed\n')
+            print('~'*80)
+            break
+    return city, month, day
 
-
-		# get user input for day of week (all, monday, tuesday, ... sunday)
-		print('Which day of the week do you wanna view?')
-		while True:
-			try:
-				day_input = input('Select from Sun, Mon, Tues, Wed, Thurs, Fri, Sat, or the whole week:\n')
-				if day_input.lower() == 'sunday' or day_input.lower() == 'sun':
-					day = 'Sunday'
-					break
-				elif day_input.lower() == 'monday' or day_input.lower() == 'mon':
-					print('I hate Mondays')
-					day = 'Monday'
-					break
-				elif day_input.lower() == 'tuesday' or day_input.lower() == 'tues':
-					day = 'Tuesday'
-					break
-				elif day_input.lower() == 'wednesday' or day_input.lower() == 'wed':
-					print('HUMP DAY!!!')
-					day = 'Wednesday'
-					break
-				elif day_input.lower() == 'thursday' or day_input.lower() == 'thurs':
-					day = 'Thursday'
-					break
-				elif day_input.lower() == 'friday' or day_input.lower() == 'fri':
-					day = 'Friday'
-					break
-				elif day_input.lower() == 'saturday' or day_input.lower() == 'sat':
-					day = 'Saturday'
-					break
-				elif day_input.lower() == 'all' or day_input.lower() == 'the whole week':
-					print('You seriously want the whole week?!')
-					day = 'The Whole Week'
-					break
-				else:
-					print('{} is not even close to being a day of the week. Try again.'.format(day_input))
-			finally:
-				print('\n...Reviewing your choices...\n')
-
-		print('~'*80)
-		print('Just to recap. Your choices are as follows: {0}, {1}, and {2}'.format(city, month, day))
-		recap = input('Are you sure about these choices? Enter yes or no.\n')
-		if recap.lower() == 'yes' or recap.lower() == 'y' or recap == '':
-			print('Choices confirmed\n')
-			print('~'*80)
-			break
-	return city, month, day
-
-# Create dataframe from user input
+# Take user input and create dataframe
 def load_data(city, month, day):
-	df = pd.read_csv(CITY_DATA[city])
-	# convert to datetime
-	df['Start Time'] = pd.to_datetime(df['Start Time'])
-	df['End Time'] = pd.to_datetime(df['End Time'])
-	# get the month and day
-	df['month'] = df['Start Time'].dt.month
-	df['day'] = df['Start Time'].dt.day_name()
-	# filter by month
-	if month != 'All Months':
-		months = ['January', 'February', 'March', 'April', 'May', 'June'] #Here in the months list, January is index 0
-		month = months.index(month) + 1 #then its index gets updated by +1 to match the df['month']
-		df = df[df['month'] == month]
-	# filter by day
-	if day != 'The Whole Week':
-		df = df[df['day'] == day.title()]
+    df = pd.read_csv(CITY_DATA[city])
+    #convert to datetime
+    df['Start Time'] = pd.to_datetime(df['Start Time'])
+    df['End Time'] = pd.to_datetime(df['End Time'])
+    # get the month and day
+    df['month'] = df['Start Time'].dt.month
+    df['day'] = df['Start Time'].dt.day_name()
+    # filter by month
+    if month != 'All Months':
+        months = ['January', 'February', 'March', 'April', 'May', 'June']
+        month = months.index(month) + 1
+        df = df[df['month'] == month]
+    # filter by day
+    if day != 'The Whole Week':
+        df = df[df['day'] == day.title()]
 
-	return df
+    return df
 
 # Displays user statistics
 def user_stats(city, df):
-	# stats of user type
-	print('\n***We will now display User Statistics***\n')
-	ans = input('Do you wanna see statistics about "User Type"? Enter yes or no.\n')
-	if ans.lower() == 'yes' or ans.lower() == 'y':
-		start_time = time.time()
-		user = df.groupby(['User Type']).size()
-		print('The counts for regular Customers vs Subscribers bike users:\n', user)
-		print("\nThis took %s seconds to execute." % (time.time() - start_time))
-		print('~'*80)
-	# This gives additional stats for the cities Chicago and NYC
-	# Statistics in gender and birthyear
-	if city == 'New York City' or city == 'Chicago':
-		print('BONUS: Since you selected {} as the city, here are some additional statistics.\n'.format(city))
-		ans = input('Do you wanna see statistics about "Gender"? Enter yes or no.\n')
-		if ans.lower() == 'yes' or ans.lower() == 'y':
-			start_time = time.time()
-			gender = df.groupby(['Gender']).size()
-			print('The counts for Male vs Female bike users:\n',gender)
-			print("\nThis took %s seconds to execute." % (time.time() - start_time))
-			print('~'*80)
-
-		ans = input('Do you wanna see statistics about "Birth Year & Age"? Enter yes or no.\n')
-		if ans.lower() == 'yes' or ans.lower() == 'y':
-			start_time = time.time()
-			df['Age'] = 2020 - df['Birth Year']
-			avg_age = df['Age'].mean()
-			print('The average age of bikers in {} is {:.5f} years-old.'.format(city, avg_age))
-			print('\nThe oldest rider, thus far, is {} years-old.'.format(int(df['Age'].max()))) # the oldest goes over 120!?
-			print('\nThe youngest rider, thus far, is {} years-old.'.format(int(df['Age'].min()))) # apparently one of the bike users is 4 yrs old?
-			print('\nThe most common age that use the bikes: \n', df['Age'].value_counts().head(1))
-			print("\nThis took %s seconds to execute." % (time.time() - start_time))
-			print('~'*80)
-	return
+    # stats of user type
+    print('\n***We will now display User Statistics***\n')
+    ans = input('Do you wanna see statistics about "User Type"? Enter yes or no.\n')
+    if ans.lower() == 'yes' or ans.lower() == 'y':
+        start_time = time.time()
+        user = df.groupby(['User Type']).size()
+        print('The counts for regular Customers vs Subscribers bike users:\n', user)
+        print("\nThis took %s seconds to execute." % (time.time() - start_time))
+        print('~'*80)
+    # This gives additional stats for the cities Chicago and NYC
+    # statistics in gender
+    if city == 'New York City' or city == 'Chicago':
+        print('BONUS: Since you selected {} as the city, here are some additional statistics.\n'.format(city))
+        ans = input('Do you wanna see statistics about "Gender"? Enter yes or no.\n')
+        if ans.lower() == 'yes' or ans.lower() == 'y':
+            start_time = time.time()
+            gender = df.groupby(['Gender']).size()
+            print('The counts for Male vs Female bike users:\n',gender)
+            print("\nThis took %s seconds to execute." % (time.time() - start_time))
+            print('~'*80)
+        # stats regarding birth year and newly made column age
+        ans = input('Do you wanna see statistics about "Birth Year & Age"? Enter yes or no.\n')
+        if ans.lower() == 'yes' or ans.lower() == 'y':
+            start_time = time.time()
+            df['Age'] = 2020 - df['Birth Year']
+            avg_age = df['Age'].mean()
+            print('The average age of bikers in {} is {:.5f} years-old.'.format(city, avg_age))
+            print('\nThe oldest rider, thus far, is {} years-old.'.format(int(df['Age'].max())))
+            print('\nThe youngest rider, thus far, is {} years-old.'.format(int(df['Age'].min())))
+            print('\nThe most common age that use the bikes: \n', df['Age'].value_counts().head(1))
+            print("\nThis took %s seconds to execute." % (time.time() - start_time))
+            print('~'*80)
+    return
 
 # calculates time related stats
 def time_stats(df):
-	print('\n***We will now display Time-related Statistics***\n')
-	ans = input('Do you wanna see statistics about "Start Time or End Time"? Enter yes or no.\n')
-	if ans.lower() == 'yes' or ans.lower() == 'y':
-		start_time = time.time()
-		#find most common month
-		common_month = df['month'].mode()[0]
-		if common_month in month_index:
-			print('\nThe most common month is', month_index[common_month])
-		#find most common day
-		common_day = df['day'].mode()[0]
-		print('\nThe most common day is', common_day)
-		# find common start of the trip
-		df['hour'] = df['Start Time'].dt.hour
-		common_hour = df['hour'].mode()[0]
-		print('\nThe most common start hour for a trip is', common_hour)
-		print("\nThis took %s seconds to execute." % (time.time() - start_time))
-		print('~'*80)
-	return
+    print('\n***We will now display Time-related Statistics***\n')
+    ans = input('Do you wanna see statistics about "Start Time or End Time"? Enter yes or no.\n')
+    if ans.lower() == 'yes' or ans.lower() == 'y':
+        start_time = time.time()
+        #find most common month
+        common_month = df['month'].mode()[0]
+        if common_month in month_index:
+            print('\nThe most common month is', month_index[common_month])
+        #find most common day
+        common_day = df['day'].mode()[0]
+        print('\nThe most common day is', common_day)
+        # find common start of the trip
+        df['hour'] = df['Start Time'].dt.hour
+        common_hour = df['hour'].mode()[0]
+        print('\nThe most common start hour for a trip is', common_hour)
+        print("\nThis took %s seconds to execute." % (time.time() - start_time))
+        print('~'*80)
+    return
 
 # calculates stats using the trip duration column
 def trip_duration_stats(df):
@@ -255,35 +219,73 @@ def trip_duration_stats(df):
 
 # finds station related statistics
 def station_stats(df):
-	print('\n***We will now display Station Statistics***\n')
-	ans = input('Do you wanna see the most common "Start Station"? Enter yes or no.\n')
-	if ans.lower() == 'yes' or ans.lower() == 'y':
-		start_time = time.time()
-		# finds common start station
-		common_start = df.groupby(['Start Station']).size().sort_values(ascending=False).index[0]
-		print('The most common Start Station is', common_start)
-		print("\nThis took %s seconds to execute." % (time.time() - start_time))
-		print('~'*80)
-	ans = input('Do you wanna see the most common "End Station"? Enter yes or no.\n')
-	if ans.lower() == 'yes' or ans.lower() == 'y':
-		start_time = time.time()
-		#finds common end station
-		common_end = df.groupby(['End Station']).size().sort_values(ascending=False).index[0]
-		print('The most common Start Station is', common_end)
-		print("\nThis took %s seconds to execute." % (time.time() - start_time))
-		print('~'*80)
-	ans = input('Do you wanna see the most common "Start -> End" trip? Enter yes or no.\n')
-	if ans.lower() == 'yes' or ans.lower() == 'y':
-		# finds common trip
-		start_time = time.time()
-		t1 = df['Start Station'].copy()
-		t2 = df['End Station'].copy()
-		df['trip'] = t1.str.cat(t2, sep=" to ")
-		common_trip = df.groupby(['trip']).size().sort_values(ascending=False).index[0]
-		print('The most common "Start -> End" trip is from', common_trip)
-		print("\nThis took %s seconds to execute." % (time.time() - start_time))
-		print('~'*80)
-	return
+    print('\n***We will now display Station Statistics***\n')
+    ans = input('Do you wanna see the most common "Start Station"? Enter yes or no.\n')
+    if ans.lower() == 'yes' or ans.lower() == 'y':
+        start_time = time.time()
+        # finds common start station
+        common_start = df.groupby(['Start Station']).size().sort_values(ascending=False).index[0]
+        print('The most common Start Station is', common_start)
+        print("\nThis took %s seconds to execute." % (time.time() - start_time))
+        print('~'*80)
+    ans = input('Do you wanna see the most common "End Station"? Enter yes or no.\n')
+    if ans.lower() == 'yes' or ans.lower() == 'y':
+        start_time = time.time()
+        #finds common end station
+        common_end = df.groupby(['End Station']).size().sort_values(ascending=False).index[0]
+        print('The most common Start Station is', common_end)
+        print("\nThis took %s seconds to execute." % (time.time() - start_time))
+        print('~'*80)
+    ans = input('Do you wanna see the most common "Start -> End" trip? Enter yes or no.\n')
+    if ans.lower() == 'yes' or ans.lower() == 'y':
+        # finds common trip
+        start_time = time.time()
+        t1 = df['Start Station'].copy()
+        t2 = df['End Station'].copy()
+        df['trip'] = t1.str.cat(t2, sep=" to ")
+        common_trip = df.groupby(['trip']).size().sort_values(ascending=False).index[0]
+        print('The most common "Start -> End" trip is from', common_trip)
+        print("\nThis took %s seconds to execute." % (time.time() - start_time))
+        print('~'*80)
+    return
+
+# Print 5 rows of data at a time
+def print_df(df):
+    df = fix_df(df) # returns df back to normal after all the stat functions are executed
+    pd.set_option('display.max_columns', None)
+    pd.set_option('display.max_rows', None)
+    pd.set_option('display.width', 200)
+    count = 0
+    print('\n***We will now print out a few rows of raw data***')
+    start_time = time.time()
+    while True:
+        ans = input('\nEnter yes(y) or press the enter key to scroll through raw data. Otherwise, enter no(n): ')
+        if ans.lower() == 'yes' or ans.lower() == 'y' or ans == '':
+            print('\nPrinting rows...')
+            #I am sure there is a better way to execute this but this will do for now
+            print(df.iloc[count:count+5,:])
+            count += 5
+        elif ans.lower() == 'no' or ans.lower() == 'n':
+            print("\nYou looked at raw data for %s seconds." % (time.time() - start_time))
+            print('~'*80)
+            break
+        else:
+            print('INVALID INPUT')
+
+# Prints out data properly for cases you were selective in which data user views
+def fix_df(df):
+    df = df.rename(columns={'Unnamed: 0':'ID'})
+    if 'day' in df.columns:
+        df.pop('day')
+    if 'month' in df.columns:
+        df.pop('month')
+    if 'hour' in df.columns:
+        df.pop('hour')
+    if 'trip' in df.columns:
+        df.pop('trip')
+    if 'Age' in df.columns:
+        df.pop('Age')
+    return df
 
 def main():
     while True:
