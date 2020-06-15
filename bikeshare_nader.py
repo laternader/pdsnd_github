@@ -252,6 +252,9 @@ def station_stats(df):
 # Print 5 rows of data at a time
 def print_df(df):
     df = fix_df(df) # returns df back to normal after all the stat functions are executed
+    pd.set_option('display.max_columns', None)
+    pd.set_option('display.max_rows', None)
+    pd.set_option('display.width', 200)
     count = 0
     print('\n***We will now print out a few rows of raw data***')
     start_time = time.time()
