@@ -1,7 +1,5 @@
-import time
+yyyyyyyyyyyyyyyyyyyyyyyyyyimport time
 import pandas as pd
-import numpy as np
-
 
 CITY_DATA = { 'Chicago': 'chicago.csv',
 			'New York City': 'new_york_city.csv',
@@ -15,31 +13,65 @@ month_index = { 1: 'January',
 				6: 'June'}
 # Begin filtering data
 def get_filters():
-	print('Hello! Let\'s explore some US bikeshare data!\n')
-	print('But first we have to filter the data before you can see anything.')
-	print('First, we need to know which city we want to look at.')
-	print('Please try to answer as properly as possible.')
-	while True:
-	# get user input for city
-		while True:
-			try:
-				city_input = input('\nWhich city would you like to explore: Chicago, Washington, or New York City? \n')
-				if city_input.lower() == 'chi-town' or city_input.lower() == 'chicago' or city_input.lower() == 'chitown':
-					city = 'Chicago'
-					print('Ahhh the windy city, good choice!')
-					break
-				elif city_input.lower() == 'washington' or city_input.lower() == 'dc' or city_input == 'The Nation\'s Capital' or city_input.lower() == 'washington dc':
-					city = 'Washington'
-					print('A nice choice if it wasn\'t for the current guy living in the White House.')
-					break
-				elif city_input.lower() == 'new york city' or city_input.lower() == 'nyc' or city_input.lower() == 'new york':
-					city = 'New York City'
-					print('Time to get into that Empire State of Mind.')
-					break
-				else:
-					print('As much as we should go to "{}", we can\'t.'.format(city_input))
-			finally:
-				print('\n...Reviewing your choices...\n')
+    print('Hello! Let\'s explore some US bikeshare data!\n')
+    print('But first we have to filter the data before you can see anything.')
+    print('First, we need to know which city we want to look at.')
+    print('Please try to answer as properly as possible.')
+    while True:
+    # get user input for city
+        while True:
+            try:
+                city_input = input('\nWhich city would you like to explore: Chicago, Washington, or New York City? \n')
+                if city_input.lower() == 'chi-town' or city_input.lower() == 'chicago' or city_input.lower() == 'chitown':
+                    city = 'Chicago'
+                    print('Ahhh the windy city, good choice!')
+                    break
+                elif city_input.lower() == 'washington' or city_input.lower() == 'dc' or city_input == 'The Nation\'s Capital' or city_input.lower() == 'washington dc':
+                    city = 'Washington'
+                    print('A nice choice if it wasn\'t for the current guy living in the White House.')
+                    break
+                elif city_input.lower() == 'new york city' or city_input.lower() == 'nyc' or city_input.lower() == 'new york':
+                    city = 'New York City'
+                    print('Time to get into that Empire State of Mind.')
+                    break
+                else:
+                    print('As much as we should go to "{}", we can\'t.'.format(city_input))
+            finally:
+                print('\n...Reviewing your choices...\n')
+
+
+        # get user input for month (all, january, february, ... , june)
+        print('Now we have to know which month from January to June, or all.')
+        while True:
+            try:
+                print('January, February, March, April, May, June, or "All"')
+                month_input = input('Which month do you want to check out?\n')
+                if month_input.lower() == 'january' or month_input.lower() == 'jan':
+                    month = 'January'
+                    break
+                elif month_input.lower() == 'february' or month_input.lower() == 'feb':
+                    month = 'February'
+                    break
+                elif month_input.lower() == 'march' or month_input.lower() == 'mar':
+                    month = 'March'
+                    break
+                elif month_input.lower() == 'april' or month_input.lower() == 'apr':
+                    month = 'April'
+                    break
+                elif month_input.lower() == 'may':
+                    month = 'May'
+                    break
+                elif month_input.lower() == 'june' or month_input.lower() == 'jun':
+                    month = 'June'
+                    break
+                elif month_input.lower() == 'all':
+                    print('You really want all of it?! Okay...your choice.')
+                    month = 'All Months'
+                    break
+                else:
+                    print('"{}" is an invalid month. Let\'s try this again.\n'.format(month_input))
+            finally:
+                print('\n...Reviewing your choices...\n')
 
 
 		# get user input for month (all, january, february, ... , june)
@@ -164,7 +196,7 @@ def user_stats(city, df):
 			print('The counts for Male vs Female bike users:\n',gender)
 			print("\nThis took %s seconds to execute." % (time.time() - start_time))
 			print('~'*80)
-		
+
 		ans = input('Do you wanna see statistics about "Birth Year & Age"? Enter yes or no.\n')
 		if ans.lower() == 'yes' or ans.lower() == 'y':
 			start_time = time.time()
@@ -201,25 +233,25 @@ def time_stats(df):
 
 # calculates stats using the trip duration column
 def trip_duration_stats(df):
-	# make sure no trip duration are in floats
-	df[("Trip Duration")] = df["Trip Duration"].fillna(0.0).astype(int)
-	print('\n***We will now display Trip Duration Statistics***\n')
-	ans = input('Do you wanna see statistics about "Trip Duration"? Enter yes or no.\n')
-	if ans.lower() == 'yes' or ans.lower() == 'y':
-		start_time = time.time()
-		# finds total time duration
-		total_time = df['Trip Duration'].sum()
-		print('The total amount of travel time is', total_time,'seconds')
-		print('OR', total_time/60, 'minutes')
-		print('OR', total_time/3600, 'hours')
-		print()
-		# finds average trip time
-		mean_time = df['Trip Duration'].mean()
-		print('The average for travel time is', mean_time,'seconds')
-		print('OR', mean_time/60, 'minutes')
-		print("\nThis took %s seconds to execute." % (time.time() - start_time))
-		print('~'*80)
-	return
+    # make sure no trip duration are in floats
+    df[("Trip Duration")] = df["Trip Duration"].fillna(0.0).astype(int)
+    print('\n***We will now display Trip Duration Statistics***\n')
+    ans = input('Do you wanna see statistics about "Trip Duration"? Enter yes or no.\n')
+    if ans.lower() == 'yes' or ans.lower() == 'y':
+        start_time = time.time()
+        # finds total time duration
+        total_time = df['Trip Duration'].sum()
+        print('The total amount of travel time is', total_time,'seconds')
+        print('OR', total_time/60, 'minutes')
+        print('OR', total_time/3600, 'hours')
+        print()
+        # finds average trip time
+        mean_time = df['Trip Duration'].mean()
+        print('The average for travel time is', mean_time,'seconds')
+        print('OR', mean_time/60, 'minutes')
+        print("\nThis took %s seconds to execute." % (time.time() - start_time))
+        print('~'*80)
+    return
 
 # finds station related statistics
 def station_stats(df):
@@ -253,53 +285,25 @@ def station_stats(df):
 		print('~'*80)
 	return
 
-# helps with printing 5 rows at a time
-def print_df(df2):
-	count = 0
-	print('\n***We will now print out a few rows of raw data***')
-	d = df2.to_dict('records') #turns each row in dataframe into a dictionary which is then put into a large list containing these dictionaries
-	while True:
-		start_time = time.time()
-		ans = input('\nEnter yes(y) or press the enter key to scroll through raw data. Otherwise, enter no(n): ')
-		if ans.lower() == 'yes' or ans.lower() == 'y' or ans == '':
-			print('\nPrinting rows...')
-			#I am sure there is a better way to execute this but this will do for now
-			print(d[count])
-			print(d[count+1])
-			print(d[count+2])
-			print(d[count+3])
-			print(d[count+4])
-			count += 5
-		elif ans.lower() == 'no' or ans.lower() == 'n':
-			print("\nYou looked at raw data for %s seconds." % (time.time() - start_time))
-			print('~'*80)
-			break
-		else:
-			print('INVALID INPUT')
-
-
 def main():
-	while True:
-		city, month, day = get_filters()
-		df = load_data(city, month, day) # df2 is to help print out rows 5 at a time and is the original dataframes without additional columns
-		df2 = df.copy()
-		df2 = df2.rename(columns={'Unnamed: 0':'ID'}) #rename one of the columns to a better name
-		df2.pop('day') # removes the filters created from get_filters()
-		df2.pop('month') #removed
+    while True:
+        city, month, day = get_filters()
+        df = load_data(city, month, day)
 
-		time_stats(df)
-		station_stats(df)
-		trip_duration_stats(df)
-		user_stats(city, df)
-		print_df(df2)
+        time_stats(df)
+        station_stats(df)
+        trip_duration_stats(df)
+        user_stats(city, df)
 
-		print('~'*80)
-		print('Just to recap. You looked at stats with these filters: {0}, {1}, and {2}'.format(city, month, day))
-		restart = input('\nWould you like to restart? Enter yes or no.\n')
-		if restart.lower() == 'no' or restart.lower() == 'n':
-			print('Thank you. Come again!')
-			break
+        print_df(df)
+
+        print('~'*80)
+        print('Just to recap. You looked at stats with these filters: {0}, {1}, and {2}'.format(city, month, day))
+        restart = input('\nWould you like to restart? Enter yes or no.\n')
+        if restart.lower() == 'no' or restart.lower() == 'n':
+            print('Thank you. Come again!')
+            break
 
 if __name__ == "__main__":
 
-	main()
+    main()
