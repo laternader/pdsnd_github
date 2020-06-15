@@ -1,7 +1,5 @@
 import time
 import pandas as pd
-import numpy as np
-
 
 CITY_DATA = { 'Chicago': 'chicago.csv',
             'New York City': 'new_york_city.csv',
@@ -111,7 +109,6 @@ def get_filters():
                     print('{} is not even close to being a day of the week. Try again.'.format(day_input))
             finally:
                 print('\n...Reviewing your choices...\n')
-
         print('~'*80)
         print('Just to recap. Your choices are as follows: {0}, {1}, and {2}'.format(city, month, day))
         recap = input('Are you sure about these choices? Enter yes or no.\n')
@@ -121,7 +118,7 @@ def get_filters():
             break
     return city, month, day
 
-# turn the selected parts of the csv into a dataframe
+# Take user input and create dataframe
 def load_data(city, month, day):
     df = pd.read_csv(CITY_DATA[city])
     #convert to datetime
@@ -132,8 +129,8 @@ def load_data(city, month, day):
     df['day'] = df['Start Time'].dt.day_name()
     # filter by month
     if month != 'All Months':
-        months = ['January', 'February', 'March', 'April', 'May', 'June'] #Here in the months list, January is index 0
-        month = months.index(month) + 1 #then its index gets updated by +1 to match the df['month']
+        months = ['January', 'February', 'March', 'April', 'May', 'June'] 
+        month = months.index(month) + 1 
         df = df[df['month'] == month]
     # filter by day
     if day != 'The Whole Week':
@@ -170,8 +167,8 @@ def user_stats(city, df):
             df['Age'] = 2020 - df['Birth Year']
             avg_age = df['Age'].mean()
             print('The average age of bikers in {} is {:.5f} years-old.'.format(city, avg_age))
-            print('\nThe oldest rider, thus far, is {} years-old.'.format(int(df['Age'].max()))) # the oldest goes over 120!?
-            print('\nThe youngest rider, thus far, is {} years-old.'.format(int(df['Age'].min()))) # apparently one of the bike users is 4 yrs old?
+            print('\nThe oldest rider, thus far, is {} years-old.'.format(int(df['Age'].max()))) 
+            print('\nThe youngest rider, thus far, is {} years-old.'.format(int(df['Age'].min()))) 
             print('\nThe most common age that use the bikes: \n', df['Age'].value_counts().head(1))
             print("\nThis took %s seconds to execute." % (time.time() - start_time))
             print('~'*80)
@@ -252,12 +249,10 @@ def station_stats(df):
         print('~'*80)
     return
 
-# helps with printing 5 rows at a time
+# Print 5 rows of data at a time
 def print_df(df):
+    df = fix_df(df) # returns df back to normal after all the stat functions are executed
     count = 0
-    df = df.rename(columns={'Unnamed: 0':'ID'}) #rename one of the columns to a better name
-    df.pop('day') # removes the filters created from get_filters()
-    df.pop('month') #removed
     print('\n***We will now print out a few rows of raw data***')
     start_time = time.time()
     while True:
@@ -274,17 +269,31 @@ def print_df(df):
         else:
             print('INVALID INPUT')
 
+# Prints out data properly for cases you were selective in which data user views
+def fix_df(df):
+    df = df.rename(columns={'Unnamed: 0':'ID'}) 
+    if 'day' in df.columns:
+        df.pop('day') 
+    if 'month' in df.columns:
+        df.pop('month')
+    if 'hour' in df.columns:
+        df.pop('hour')
+    if 'trip' in df.columns:
+        df.pop('trip')
+    if 'Age' in df.columns:
+        df.pop('Age')
+    return df
 
 def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
-
+        
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
         user_stats(city, df)
-
+        
         print_df(df)
 
         print('~'*80)
