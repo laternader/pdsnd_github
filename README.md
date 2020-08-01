@@ -18,3 +18,5 @@ not want from three csv files: chicago, washington, and new_york_city. Upon doin
 For helping remove commits that I needed to [remove](https://stackoverflow.com/questions/1338728/delete-commits-from-a-branch-in-git).
 
 For helping me understand when to [push/pull](https://stackoverflow.com/questions/10565217/do-you-push-every-single-commit) commits.
+
+## *The data and the idea of the project was provided by Udacity*
